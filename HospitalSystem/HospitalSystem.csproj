@@ -121,7 +121,7 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
-    <Content Include="DoctroDashboard.aspx" />
+    <Content Include="DoctorDashboard.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
@@ -219,12 +219,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DoctroDashboard.aspx.cs">
-      <DependentUpon>DoctroDashboard.aspx</DependentUpon>
+    <Compile Include="DoctorDashboard.aspx.cs">
+      <DependentUpon>DoctorDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DoctroDashboard.aspx.designer.cs">
-      <DependentUpon>DoctroDashboard.aspx</DependentUpon>
+    <Compile Include="DoctorDashboard.aspx.designer.cs">
+      <DependentUpon>DoctorDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

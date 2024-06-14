@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DoctroDashboard.aspx.cs" Inherits="HospitalSystem.DoctroDashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DoctorDashboard.aspx.cs" Inherits="HospitalSystem.DoctorDashboard" %>
 
 <!DOCTYPE html>
 
@@ -7,7 +7,6 @@
     <title></title>
 </head>
 <body>
-    <h1>Doctor Dashboard</h1>
     <form id="form1" runat="server">
         <div>
         </div>

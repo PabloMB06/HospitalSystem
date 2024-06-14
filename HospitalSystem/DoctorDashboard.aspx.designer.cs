@@ -11,7 +11,7 @@ namespace HospitalSystem
 {
 
 
-    public partial class DoctroDashboard
+    public partial class DoctorDashboard
     {
 
         /// <summary>
