@@ -19,5 +19,10 @@ namespace HospitalSystem
         {
             Response.Redirect("DoctorMedicineInventory.aspx");
         }
+
+        protected void btnGoToDiseaseRecord_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("DoctorDiseaseRecord.aspx");
+        }
     }
 }

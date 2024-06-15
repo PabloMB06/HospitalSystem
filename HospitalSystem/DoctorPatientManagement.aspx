@@ -10,9 +10,56 @@
 <body>
     <form id="form1" runat="server">
         <div class="background">
-            <div class="container mt-5 text-center">
-                <h1 class="mb-4 text-white">Patient Management</h1>
-                <asp:PlaceHolder ID="phPatientTable" runat="server"></asp:PlaceHolder>
+            <div class="container mt-5">
+                <h1 class="mb-4 text-white">Patient Management or <a href="DoctorPatientList.aspx">Patient List</a></h1>
+
+                <!-- Form for adding/editing patient -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add/Edit Patient</h5>
+                        <div class="mb-3">
+                            <label for="txtName" class="form-label">Name</label>
+                            <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtLastName1" class="form-label">Last Name 1</label>
+                            <asp:TextBox ID="txtLastName1" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtLastName2" class="form-label">Last Name 2</label>
+                            <asp:TextBox ID="txtLastName2" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtNIC" class="form-label">NIC</label>
+                            <asp:TextBox ID="txtNIC" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtCivilStatus" class="form-label">Civil Status</label>
+                            <asp:TextBox ID="txtCivilStatus" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtBirthDate" class="form-label">Birth Date</label>
+                            <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPhone" class="form-label">Phone</label>
+                            <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Email</label>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtResidency" class="form-label">Residency</label>
+                            <asp:TextBox ID="txtResidency" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div>
+                            <asp:Button ID="btnAddPatient" runat="server" Text="Add Patient" CssClass="btn btn-primary" OnClick="btnAddPatient_Click" />
+                            <asp:Button ID="btnEditPatient" runat="server" Text="Edit Patient" CssClass="btn btn-success ms-2" OnClick="btnEditPatient_Click" />
+                            <asp:Button ID="btnDeletePatient" runat="server" Text="Delete Patient" CssClass="btn btn-danger ms-2" OnClick="btnDeletePatient_Click" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

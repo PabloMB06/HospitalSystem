@@ -14,6 +14,17 @@
                 <h1 class="text-center mb-4 text-white">Medicine List</h1>
                 <div class="row justify-content-center">
                     <div class="col-md-10">
+                        <div class="mb-3">
+                            <asp:TextBox ID="txtNewMedicine" runat="server" CssClass="form-control" placeholder="Enter medicine name"></asp:TextBox>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <asp:Button ID="btnAddMedicine" runat="server" Text="Add Medicine" CssClass="btn btn-primary" OnClick="btnAddMedicine_Click" />
+                            <asp:Button ID="btnDeleteMedicine" runat="server" Text="Delete Medicine" CssClass="btn btn-danger" OnClick="btnDeleteMedicine_Click" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
                         <asp:PlaceHolder ID="phMedicineTable" runat="server"></asp:PlaceHolder>
                     </div>
                 </div>

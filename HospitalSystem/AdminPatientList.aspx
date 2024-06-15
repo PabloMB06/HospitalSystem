@@ -12,7 +12,7 @@
     <form id="form1" runat="server">
         <div class="background">
             <div class="container mt-5">
-                <h1 class="text-center mb-4 text-white">Patients Expedient</h1>
+                <h1 class="text-center mb-4 text-white">Patients Expedient or <a href="AdminPatientManagement.aspx">Patient Management</a></h1>
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <asp:PlaceHolder ID="phPatientTable" runat="server"></asp:PlaceHolder>

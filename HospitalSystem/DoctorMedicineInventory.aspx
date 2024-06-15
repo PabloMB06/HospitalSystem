@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DoctorMedicineInventory.aspx.cs" Inherits="HospitalSystem.DoctorMedicineInventory" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Doctor Medicine Inventory</title>
@@ -13,6 +12,17 @@
         <div class="background">
             <div class="container mt-5">
                 <h1 class="text-center mb-4 text-white">Medicine Inventory</h1>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="mb-3">
+                            <asp:TextBox ID="txtNewMedicine" runat="server" CssClass="form-control" placeholder="Enter medicine name"></asp:TextBox>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <asp:Button ID="btnAddMedicine" runat="server" Text="Add Medicine" CssClass="btn btn-primary" OnClick="btnAddMedicine_Click" />
+                            <asp:Button ID="btnDeleteMedicine" runat="server" Text="Delete Medicine" CssClass="btn btn-danger" OnClick="btnDeleteMedicine_Click" />
+                        </div>
+                    </div>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <asp:PlaceHolder ID="phMedicineTable" runat="server"></asp:PlaceHolder>

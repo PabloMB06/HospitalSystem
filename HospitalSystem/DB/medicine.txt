@@ -1,1 +1,1 @@
-﻿Acetaminophen;Adderall;Amitriptyline;Amlodipine;NeuroNova;Celestrolux;ViroShield;OptiMend;RespiroCalm;
+Acetaminophen;Adderall;Amitriptyline;Amlodipine;NeuroNova;Celestrolux;ViroShield;OptiMend;RespiroCalm;

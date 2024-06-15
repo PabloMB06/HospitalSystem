@@ -15,7 +15,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
                         <asp:Button ID="btnAdminPatientManagement" runat="server" Text="Manage Patients" CssClass="btn btn-primary mb-3 w-100" OnClick="btnAdminPatientManagement_Click" />
-                        <asp:Button ID="btnAdminDoctorManagement" runat="server" Text="Manage Doctors" CssClass="btn btn-secondary w-100" OnClick="btnAdminDoctorManagement_Click" />
+                        <asp:Button ID="btnAdminDoctorManagement" runat="server" Text="Manage Doctors" CssClass="btn btn-info mb-3 w-100" OnClick="btnAdminDoctorManagement_Click" />
+                        <asp:Button ID="btnAdminMedicineInventory" runat="server" Text="Manage Medicines" CssClass="btn btn-warning mb-3 w-100" OnClick="btnAdminMedicineInventory_Click" />
+                        <asp:Button ID="btnAdminDiseaseRecord" runat="server" Text="Manage Disease Records" CssClass="btn btn-secondary mb-3 w-100" OnClick="btnAdminDiseaseRecord_Click" />
                     </div>
                 </div>
             </div>

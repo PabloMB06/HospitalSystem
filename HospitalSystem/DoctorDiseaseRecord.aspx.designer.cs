@@ -11,7 +11,7 @@ namespace HospitalSystem
 {
 
 
-    public partial class DoctorDashboard
+    public partial class DoctorDiseaseRecord
     {
 
         /// <summary>
@@ -24,30 +24,39 @@ namespace HospitalSystem
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// btnGoToPatientManagement control.
+        /// txtNewDisease control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGoToPatientManagement;
+        protected global::System.Web.UI.WebControls.TextBox txtNewDisease;
 
         /// <summary>
-        /// btnGoToMedicineInventory control.
+        /// btnAddDisease control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGoToMedicineInventory;
+        protected global::System.Web.UI.WebControls.Button btnAddDisease;
 
         /// <summary>
-        /// btnGoToDiseaseRecord control.
+        /// btnDeleteDisease control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGoToDiseaseRecord;
+        protected global::System.Web.UI.WebControls.Button btnDeleteDisease;
+
+        /// <summary>
+        /// phDiseaseTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phDiseaseTable;
     }
 }

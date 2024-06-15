@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Web.UI.WebControls;
 
 namespace HospitalSystem
 {
-    public partial class AdminDiseaseRecord : System.Web.UI.Page
+    public partial class DoctorDiseaseRecord : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
