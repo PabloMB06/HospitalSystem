@@ -19,13 +19,13 @@
                         <a href="AdminDoctorList.aspx" class="btn btn-primary btn-block">List Doctors</a>
                     </div>
                     <div class="col">
-                        <a href="#" class="btn btn-success btn-block">Create Doctor</a>
+                        <a href="AdminCreateDoctor.aspx" class="btn btn-success btn-block">Create Doctor</a>
                     </div>
                     <div class="col">
-                        <a href="#" class="btn btn-warning btn-block">Edit Doctor</a>
+                        <a href="AdminEditDoctor.aspx" class="btn btn-warning btn-block">Edit Doctor</a>
                     </div>
                     <div class="col">
-                        <a href="#" class="btn btn-danger btn-block">Delete Doctor</a>
+                        <a href="AdminDeleteDoctor.aspx" class="btn btn-danger btn-block">Delete Doctor</a>
                     </div>
                 </div>
 

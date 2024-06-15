@@ -100,10 +100,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AdminCreateDoctor.aspx" />
+    <Content Include="AdminCreatePatient.aspx" />
     <Content Include="AdminDashboard.aspx" />
+    <Content Include="AdminDeleteDoctor.aspx" />
+    <Content Include="AdminDeletePatient.aspx" />
     <Content Include="AdminDiseaseRecord.aspx" />
     <Content Include="AdminDoctorList.aspx" />
     <Content Include="AdminDoctorManagement.aspx" />
+    <Content Include="AdminEditDoctor.aspx" />
+    <Content Include="AdminEditPatient.aspx" />
     <Content Include="AdminMedicineInventory.aspx" />
     <Content Include="AdminPatientList.aspx" />
     <Content Include="AdminPatientManagement.aspx" />
@@ -138,9 +144,15 @@
     <Content Include="Images\patientdashboard.jpg" />
     <Content Include="Images\patientmedicalrecord.jpg" />
     <Content Include="PatientMedicalRecord.aspx" />
+    <Content Include="Styles\AdminCreateDoctor.css" />
+    <Content Include="Styles\AdminCreatePatient.css" />
     <Content Include="Styles\AdminDashboard.css" />
+    <Content Include="Styles\AdminDeleteDoctor.css" />
+    <Content Include="Styles\AdminDeletePatient.css" />
     <Content Include="Styles\AdminDoctorList.css" />
     <Content Include="Styles\AdminDoctorManagement.css" />
+    <Content Include="Styles\AdminEditDoctor.css" />
+    <Content Include="Styles\AdminEditPatient.css" />
     <Content Include="Styles\AdminMedicineInventory.css" />
     <Content Include="Styles\AdminPatientList.css" />
     <Content Include="Styles\AdminPatientManagement.css" />
@@ -226,12 +238,40 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminCreateDoctor.aspx.cs">
+      <DependentUpon>AdminCreateDoctor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminCreateDoctor.aspx.designer.cs">
+      <DependentUpon>AdminCreateDoctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminCreatePatient.aspx.cs">
+      <DependentUpon>AdminCreatePatient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminCreatePatient.aspx.designer.cs">
+      <DependentUpon>AdminCreatePatient.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminDashboard.aspx.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminDashboard.aspx.designer.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminDeleteDoctor.aspx.cs">
+      <DependentUpon>AdminDeleteDoctor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDeleteDoctor.aspx.designer.cs">
+      <DependentUpon>AdminDeleteDoctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminDeletePatient.aspx.cs">
+      <DependentUpon>AdminDeletePatient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDeletePatient.aspx.designer.cs">
+      <DependentUpon>AdminDeletePatient.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminDiseaseRecord.aspx.cs">
       <DependentUpon>AdminDiseaseRecord.aspx</DependentUpon>
@@ -253,6 +293,20 @@
     </Compile>
     <Compile Include="AdminDoctorManagement.aspx.designer.cs">
       <DependentUpon>AdminDoctorManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditDoctor.aspx.cs">
+      <DependentUpon>AdminEditDoctor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditDoctor.aspx.designer.cs">
+      <DependentUpon>AdminEditDoctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditPatient.aspx.cs">
+      <DependentUpon>AdminEditPatient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditPatient.aspx.designer.cs">
+      <DependentUpon>AdminEditPatient.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminMedicineInventory.aspx.cs">
       <DependentUpon>AdminMedicineInventory.aspx</DependentUpon>
