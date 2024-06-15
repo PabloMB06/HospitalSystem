@@ -12,7 +12,10 @@
         <div class="background">
             <div class="container mt-5 text-center">
                 <h1 class="mb-4 text-white">My Workspace</h1>
-                <asp:Button ID="btnGoToPatientManagement" runat="server" Text="Manage Patients" CssClass="btn btn-primary mb-3" OnClick="btnGoToPatientManagement_Click" />
+                <div class="btn-group-vertical">
+                    <asp:Button ID="btnGoToPatientManagement" runat="server" Text="Manage Patients" CssClass="btn btn-primary mb-3 btn-lg" OnClick="btnGoToPatientManagement_Click" />
+                    <asp:Button ID="btnGoToMedicineInventory" runat="server" Text="Manage Medicines" CssClass="btn btn-primary btn-lg" OnClick="btnGoToMedicineInventory_Click" />
+                </div>
             </div>
         </div>
     </form>
