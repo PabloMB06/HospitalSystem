@@ -12,7 +12,7 @@
     <form id="form1" runat="server">
         <div class="background">
             <div class="container mt-5">
-                <h1 class="text-center mb-4 text-white">Doctor List</h1>
+                <h1 class="text-center mb-4 text-white">Doctor List or <a href="AdminDoctorManagement.aspx">Doctor Management</a></h1>
 
                 <!-- Error Panel -->
                 <asp:Panel ID="pnlError" runat="server" CssClass="alert alert-danger" Visible="false">

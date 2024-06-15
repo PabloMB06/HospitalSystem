@@ -1,5 +1,5 @@
-﻿using HospitalSystem.Objects;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.UI.WebControls;
 
@@ -11,122 +11,140 @@ namespace HospitalSystem
         {
             if (!IsPostBack)
             {
-                LoadMedicalRecords();
+
             }
         }
 
-        private void LoadMedicalRecords()
+        protected void btnAddPatient_Click(object sender, EventArgs e)
         {
             string patientFilePath = Server.MapPath("~/DB/patient.txt");
-            string doctorFilePath = Server.MapPath("~/DB/doctor.txt");
-            string diseaseFilePath = Server.MapPath("~/DB/disease.txt");
-            string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
 
-            if (File.Exists(patientFilePath) && File.Exists(doctorFilePath) && File.Exists(diseaseFilePath) && File.Exists(medicineFilePath))
+            // Collect data from form fields
+            string name = txtName.Text.Trim();
+            string lastName1 = txtLastName1.Text.Trim();
+            string lastName2 = txtLastName2.Text.Trim();
+            string nic = txtNIC.Text.Trim();
+            string civilStatus = txtCivilStatus.Text.Trim();
+            string birthDate = txtBirthDate.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string residency = txtResidency.Text.Trim();
+
+            // Prepare patient data line
+            string patientData = $"{name};{lastName1};{lastName2};{nic};{civilStatus};{birthDate};{phone};{email};{residency};";
+
+            // Append patient data to file
+            File.AppendAllText(patientFilePath, Environment.NewLine + patientData);
+
+            // Clear form fields after adding patient
+            ClearFormFields();
+
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "showSuccessAlert('Patient added successfully!');", true);
+        }
+
+        protected void btnEditPatient_Click(object sender, EventArgs e)
+        {
+            string emailToEdit = txtEmail.Text.Trim(); // Edit based on email address
+
+            string patientFilePath = Server.MapPath("~/DB/patient.txt");
+            List<string> lines = new List<string>(File.ReadAllLines(patientFilePath));
+
+            bool patientFound = false;
+
+            for (int i = 0; i < lines.Count; i++)
             {
-                string[] lines = File.ReadAllLines(patientFilePath);
+                string[] patientData = lines[i].Split(';');
 
-                foreach (string line in lines)
+                if (patientData.Length > 7 && patientData[7] == emailToEdit)
                 {
-                    string[] patientData = line.Split(';');
+                    // Update patient data with form values
+                    patientData[0] = txtName.Text.Trim();
+                    patientData[1] = txtLastName1.Text.Trim();
+                    patientData[2] = txtLastName2.Text.Trim();
+                    patientData[3] = txtNIC.Text.Trim();
+                    patientData[4] = txtCivilStatus.Text.Trim();
+                    patientData[5] = txtBirthDate.Text.Trim();
+                    patientData[6] = txtPhone.Text.Trim();
+                    patientData[7] = txtEmail.Text.Trim(); // Update email if necessary
+                    patientData[8] = txtResidency.Text.Trim();
 
-                    if (patientData.Length >= 9) // Ensure there are enough fields to read
-                    {
-                        Patient patient = new Patient
-                        {
-                            Name = patientData[0],
-                            LastName1 = patientData[1],
-                            LastName2 = patientData[2],
-                            NIC = patientData[3],
-                            CivilStatus = patientData[4],
-                            BirthDate = patientData[5],
-                            Phone = patientData[6],
-                            Email = patientData[7],
-                            Residency = patientData[8]
-                        };
+                    // Join patient data back into a single line
+                    lines[i] = string.Join(";", patientData);
 
-                        // Read doctor data (assuming it's from the same structure as patient data)
-                        string[] doctorData = File.ReadAllText(doctorFilePath).Split(';');
-                        Doctor doctor = new Doctor
-                        {
-                            Name = doctorData[0],
-                            LastName1 = doctorData[1],
-                            LastName2 = doctorData[2],
-                            Specialty = doctorData[8]
-                        };
-
-                        // Get random disease and medicine
-                        string diseaseName = GetRandomEntryFromFile(diseaseFilePath);
-                        string medicineName = GetRandomEntryFromFile(medicineFilePath);
-
-                        Disease disease = new Disease
-                        {
-                            Name = diseaseName
-                        };
-
-                        Medicine medicine = new Medicine
-                        {
-                            Name = medicineName,
-                            Prescription = DateTime.Now
-                        };
-
-                        MedicalRecord medicalRecord = new MedicalRecord
-                        {
-                            Doctor = doctor,
-                            Patient = patient,
-                            Disease = disease,
-                            Medicine = medicine
-                        };
-
-                        // Simulate appointments
-                        Appointment lastAppointment = new Appointment { Visit = DateTime.Now.AddDays(-30) };
-                        Appointment nextAppointment = new Appointment { Visit = DateTime.Now.AddDays(30) };
-
-                        // Create and populate table
-                        Table table = new Table { CssClass = "table table-bordered mb-4" };
-
-                        AddTableRow(table, "Name", medicalRecord.Patient.Name);
-                        AddTableRow(table, "Last Name 1", medicalRecord.Patient.LastName1);
-                        AddTableRow(table, "Last Name 2", medicalRecord.Patient.LastName2);
-                        AddTableRow(table, "NIC", medicalRecord.Patient.NIC);
-                        AddTableRow(table, "Civil Status", medicalRecord.Patient.CivilStatus);
-                        AddTableRow(table, "Birth Date", medicalRecord.Patient.BirthDate);
-                        AddTableRow(table, "Phone", medicalRecord.Patient.Phone);
-                        AddTableRow(table, "Email", medicalRecord.Patient.Email);
-                        AddTableRow(table, "Residency", medicalRecord.Patient.Residency);
-                        AddTableRow(table, "Disease", medicalRecord.Disease.Name);
-                        AddTableRow(table, "Medicine", $"{medicalRecord.Medicine.Name} (Prescribed on: {medicalRecord.Medicine.PrescriptionFormatted})");
-                        AddTableRow(table, "Doctor", $"{medicalRecord.Doctor.Name} {medicalRecord.Doctor.LastName1} {medicalRecord.Doctor.LastName2} - {medicalRecord.Doctor.Specialty}");
-                        AddTableRow(table, "Last Appointment", lastAppointment.VisitFormatted);
-                        AddTableRow(table, "Upcoming Appointments", nextAppointment.VisitFormatted);
-
-                        // Add the table to the placeholder
-                        phPatientTable.Controls.Add(table);
-                    }
+                    patientFound = true;
+                    break; // Exit loop once patient is found and updated
                 }
             }
-        }
 
-        private void AddTableRow(Table table, string header, string value)
-        {
-            TableRow row = new TableRow();
-            TableCell cellHeader = new TableCell { Text = header, CssClass = "fw-bold" };
-            TableCell cellValue = new TableCell { Text = value };
-
-            row.Cells.Add(cellHeader);
-            row.Cells.Add(cellValue);
-            table.Rows.Add(row);
-        }
-
-        private string GetRandomEntryFromFile(string filePath)
-        {
-            if (File.Exists(filePath))
+            if (patientFound)
             {
-                string[] entries = File.ReadAllText(filePath).Split(';');
-                Random random = new Random();
-                return entries[random.Next(entries.Length)];
+                // Rewrite the entire file with updated patient data
+                File.WriteAllLines(patientFilePath, lines);
+
+                // Optionally, clear the form fields after editing
+                ClearFormFields();
+
+                // Show success message (this can be implemented in DoctorPatientManagement.aspx)
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "showSuccessAlert('Patient updated successfully!');", true);
             }
-            return "Unknown";
+            else
+            {
+                // Show error message (this can be implemented in DoctorPatientManagement.aspx)
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "showErrorAlert('Patient not found or could not be updated.');", true);
+            }
+        }
+
+        protected void btnDeletePatient_Click(object sender, EventArgs e)
+        {
+            string emailToDelete = txtEmail.Text.Trim();
+
+            string patientFilePath = Server.MapPath("~/DB/patient.txt");
+            List<string> lines = new List<string>(File.ReadAllLines(patientFilePath));
+
+            bool patientFound = false;
+
+            for (int i = 0; i < lines.Count; i++)
+            {
+                string[] patientData = lines[i].Split(';');
+
+                if (patientData.Length > 7 && patientData[7] == emailToDelete)
+                {
+                    lines.RemoveAt(i); // Remove patient data at index
+
+                    // Rewrite the entire file without the deleted patient
+                    File.WriteAllLines(patientFilePath, lines);
+
+                    patientFound = true;
+                    break; // Exit loop once patient is found and deleted
+                }
+            }
+
+            if (patientFound)
+            {
+                ClearFormFields();
+
+                // Show success message (this can be implemented in DoctorPatientManagement.aspx)
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "showSuccessAlert('Patient deleted successfully!');", true);
+            }
+            else
+            {
+                // Show error message (this can be implemented in DoctorPatientManagement.aspx)
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "showErrorAlert('Patient not found or could not be deleted.');", true);
+            }
+        }
+
+        private void ClearFormFields()
+        {
+            // Clear all textboxes
+            txtName.Text = string.Empty;
+            txtLastName1.Text = string.Empty;
+            txtLastName2.Text = string.Empty;
+            txtNIC.Text = string.Empty;
+            txtCivilStatus.Text = string.Empty;
+            txtBirthDate.Text = string.Empty;
+            txtPhone.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtResidency.Text = string.Empty;
         }
     }
 }

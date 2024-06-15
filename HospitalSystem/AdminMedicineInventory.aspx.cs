@@ -81,5 +81,78 @@ namespace HospitalSystem
         {
             return pharmacies[random.Next(pharmacies.Length)];
         }
+
+        protected void btnAddMedicine_Click(object sender, EventArgs e)
+        {
+            string newMedicine = txtNewMedicine.Text.Trim();
+            if (!string.IsNullOrEmpty(newMedicine))
+            {
+                string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
+                AppendMedicineToFile(medicineFilePath, newMedicine);
+                LoadMedicineData(); // Refresh the data displayed on the page
+                txtNewMedicine.Text = ""; // Clear the text box
+            }
+        }
+
+        protected void btnDeleteMedicine_Click(object sender, EventArgs e)
+        {
+            string medicineToDelete = txtNewMedicine.Text.Trim();
+            if (!string.IsNullOrEmpty(medicineToDelete))
+            {
+                string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
+                DeleteMedicineFromFile(medicineFilePath, medicineToDelete);
+                LoadMedicineData(); // Refresh the data displayed on the page
+                txtNewMedicine.Text = ""; // Clear the text box
+            }
+        }
+
+        private void AppendMedicineToFile(string filePath, string medicineName)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.AppendAllText(filePath, $"{medicineName};");
+                }
+                else
+                {
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        writer.Write($"{medicineName};");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle exception
+                Console.WriteLine($"Error writing to file: {ex.Message}");
+            }
+        }
+
+        private void DeleteMedicineFromFile(string filePath, string medicineName)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    string[] medicines = File.ReadAllText(filePath).Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        foreach (var medicine in medicines)
+                        {
+                            if (!medicine.Equals(medicineName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                writer.Write($"{medicine};");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle exception
+                Console.WriteLine($"Error writing to file: {ex.Message}");
+            }
+        }
     }
 }

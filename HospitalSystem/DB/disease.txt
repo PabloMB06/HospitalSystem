@@ -1,1 +1,1 @@
-﻿anxiety;diabetes;depression;epilepsy;acne;lupus;malaria;tuberculosis;zika;
+diabetes;depression;epilepsy;acne;lupus;malaria;tuberculosis;zika;anxiety;

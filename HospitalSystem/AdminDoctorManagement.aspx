@@ -11,28 +11,69 @@
     <form id="form1" runat="server">
         <div class="background">
             <div class="container mt-5">
-                <h1 class="text-center mb-4 text-white">Manage Professionals</h1>
+                <h1 class="mb-4 text-white">Doctor Management or <a href="AdminDoctorList.aspx">Doctor List</a></h1>
 
-                <!-- Navigation Buttons Grid -->
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <div class="col">
-                        <a href="AdminDoctorList.aspx" class="btn btn-primary btn-block">List Doctors</a>
-                    </div>
-                    <div class="col">
-                        <a href="AdminCreateDoctor.aspx" class="btn btn-success btn-block">Create Doctor</a>
-                    </div>
-                    <div class="col">
-                        <a href="AdminEditDoctor.aspx" class="btn btn-warning btn-block">Edit Doctor</a>
-                    </div>
-                    <div class="col">
-                        <a href="AdminDeleteDoctor.aspx" class="btn btn-danger btn-block">Delete Doctor</a>
+                <!-- Form for adding/editing doctor -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add/Edit Doctor</h5>
+                        <div class="mb-3">
+                            <label for="txtFirstName" class="form-label">First Name</label>
+                            <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtLastName1" class="form-label">Last Name 1</label>
+                            <asp:TextBox ID="txtLastName1" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtLastName2" class="form-label">Last Name 2</label>
+                            <asp:TextBox ID="txtLastName2" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtNIC" class="form-label">NIC</label>
+                            <asp:TextBox ID="txtNIC" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtCivilStatus" class="form-label">Civil Status</label>
+                            <asp:TextBox ID="txtCivilStatus" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtBirthDate" class="form-label">Birth Date</label>
+                            <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPhone" class="form-label">Phone</label>
+                            <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Email</label>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtSpecialization" class="form-label">Specialization</label>
+                            <asp:TextBox ID="txtSpecialization" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div>
+                            <asp:Button ID="btnAddDoctor" runat="server" Text="Add Doctor" CssClass="btn btn-primary" OnClick="btnAddDoctor_Click" />
+                            <asp:Button ID="btnEditDoctor" runat="server" Text="Edit Doctor" CssClass="btn btn-success ms-2" OnClick="btnEditDoctor_Click" />
+                            <asp:Button ID="btnDeleteDoctor" runat="server" Text="Delete Doctor" CssClass="btn btn-danger ms-2" OnClick="btnDeleteDoctor_Click" />
+                        </div>
                     </div>
                 </div>
 
+                <!-- Bootstrap alerts for notifications -->
+                <div id="alertContainer" runat="server">
+                    <div id="successAlert" class="alert alert-success mt-3 d-none" role="alert">
+                        Operation successful!
+                    </div>
+                    <div id="errorAlert" class="alert alert-danger mt-3 d-none" role="alert">
+                        An error occurred.
+                    </div>
+                </div>
             </div>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
