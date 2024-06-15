@@ -24,6 +24,12 @@ namespace HospitalSystem
             string patientFilePath = Server.MapPath("~/DB/patient.txt");
             string doctorFilePath = Server.MapPath("~/DB/doctor.txt");
 
+            if (txtEmail.Text == "admin" && txtPassword.Text == "admin")
+            {
+                Response.Redirect("AdminDashboard.aspx");
+                return;
+            }
+
             if (File.Exists(patientFilePath) && File.Exists(doctorFilePath))
             {
                 // Check if the user is a patient
