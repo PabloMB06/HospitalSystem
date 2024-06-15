@@ -1,0 +1,1 @@
+﻿Bayer;Pfizer;Moderna;Johnson & Johnson;Novartis;Merck;GSK;AstraZeneca;

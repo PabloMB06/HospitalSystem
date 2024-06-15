@@ -13,5 +13,15 @@ namespace HospitalSystem
         {
 
         }
+
+        protected void btnAdminPatientManagement_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminPatientManagement.aspx");
+        }
+
+        protected void btnAdminDoctorManagement_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminDoctorManagement.aspx");
+        }
     }
 }

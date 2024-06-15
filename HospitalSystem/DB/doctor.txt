@@ -1,0 +1,3 @@
+﻿Marco;Perez;Rojas;118940941;Married;14/06/1977;87020253;marco@gmail.com;General Physician;
+Joseph;Smith;Cordoba;118940941;Married;14/06/1989;87020253;joseph@gmail.com;General Physician;
+Juliana;Fonseca;Vega;118940941;Married;14/06/2000;87020253;juliana@gmail.com;General Physician;

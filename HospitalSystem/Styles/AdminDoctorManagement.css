@@ -1,0 +1,44 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.background {
+    position: relative;
+    background-image: url('../Images/admindoctormanagement.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+h1 {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.table {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table .fw-bold {
+        font-weight: bold;
+        background-color: #f8f9fa;
+        text-align: right;
+        padding-right: 15px;
+    }
+
+    .table td {
+        background-color: #ffffff;
+        padding-left: 15px;
+    }

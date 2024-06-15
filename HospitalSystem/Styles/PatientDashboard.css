@@ -1,0 +1,41 @@
+﻿body {
+    background-image: url('../Images/patientdashboard.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #0056b3;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table-bordered {
+    border: 2px solid #dee2e6;
+}
+
+.table thead th {
+    background-color: #0056b3;
+    color: white;
+}
+
+.table tbody td {
+    font-size: 1.1em;
+}
+
+.fw-bold {
+    font-weight: bold;
+}

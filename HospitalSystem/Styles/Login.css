@@ -1,10 +1,15 @@
-﻿/* Content/Login.css */
+﻿/* Styles for Login.aspx */
 
-.container {
-    margin-top: 50px;
+/* Background Image and Container Styles */
+.login-bg {
+    height: 100vh;
+    background-image: url('../Images/login.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-.col-md-4 {
+/* Card and Form Styling */
+.card {
     background-color: #f7f7f7;
     padding: 20px;
     border-radius: 10px;

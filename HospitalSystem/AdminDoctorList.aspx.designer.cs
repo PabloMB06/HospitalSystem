@@ -11,7 +11,7 @@ namespace HospitalSystem
 {
 
 
-    public partial class AdminDashboard
+    public partial class AdminDoctorList
     {
 
         /// <summary>
@@ -24,21 +24,30 @@ namespace HospitalSystem
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// btnAdminPatientManagement control.
+        /// pnlError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdminPatientManagement;
+        protected global::System.Web.UI.WebControls.Panel pnlError;
 
         /// <summary>
-        /// btnAdminDoctorManagement control.
+        /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdminDoctorManagement;
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+
+        /// <summary>
+        /// phDoctorTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phDoctorTable;
     }
 }

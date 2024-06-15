@@ -11,7 +11,7 @@ namespace HospitalSystem
 {
 
 
-    public partial class Home
+    public partial class AdminPatientManagement
     {
 
         /// <summary>

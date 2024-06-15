@@ -1,0 +1,40 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.background {
+    position: relative;
+    background-image: url('../Images/doctorpatientmanagement.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity as needed */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Adjust max width based on your design */
+    width: 100%;
+}
+
+.table {
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add margin bottom to create space between tables */
+}
