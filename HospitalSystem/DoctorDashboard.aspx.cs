@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 
 namespace HospitalSystem
@@ -12,7 +12,7 @@ namespace HospitalSystem
 
         protected void btnGoToPatientManagement_Click(object sender, EventArgs e)
         {
-            Response.Redirect("DoctorPatientManagement.aspx");
+            Response.Redirect("ManagePatientDashboard.aspx");
         }
 
         protected void btnGoToMedicineInventory_Click(object sender, EventArgs e)
