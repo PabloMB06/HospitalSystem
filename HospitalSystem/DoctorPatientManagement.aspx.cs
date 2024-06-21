@@ -146,5 +146,10 @@ namespace HospitalSystem
             txtEmail.Text = string.Empty;
             txtResidency.Text = string.Empty;
         }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManagePatientDashboard.aspx");
+        }
     }
 }

@@ -55,7 +55,7 @@
                         </div>
                         <div>
                             <asp:Button ID="btnAddPatient" runat="server" Text="Add Patient" CssClass="btn btn-primary" OnClick="btnAddPatient_Click" />                  
-                            <asp:Button ID="btnBack" runat="server" Text="Back to patient management" CssClass="btn btn-danger ms-2" OnClick="btnBack_Click" />
+                            <asp:Button ID="btnBack" runat="server" Text="Go Back" CssClass="btn btn-danger ms-2" OnClick="btnBack_Click" />
 
                         </div>
                     </div>
