@@ -1,132 +1,67 @@
-﻿using HospitalSystem.Objects;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.UI.WebControls;
 
 namespace HospitalSystem
 {
-    public partial class DoctorPatientList : System.Web.UI.Page
+    public partial class DoctorPatientManagement : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadMedicalRecords();
+
             }
         }
 
-        private void LoadMedicalRecords()
+        protected void btnAddPatient_Click(object sender, EventArgs e)
         {
             string patientFilePath = Server.MapPath("~/DB/patient.txt");
-            string doctorFilePath = Server.MapPath("~/DB/doctor.txt");
-            string diseaseFilePath = Server.MapPath("~/DB/disease.txt");
-            string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
 
-            if (File.Exists(patientFilePath) && File.Exists(doctorFilePath) && File.Exists(diseaseFilePath) && File.Exists(medicineFilePath))
-            {
-                string[] lines = File.ReadAllLines(patientFilePath);
+            // Collect data from form fields
+            string name = txtName.Text.Trim();
+            string lastName1 = txtLastName1.Text.Trim();
+            string lastName2 = txtLastName2.Text.Trim();
+            string nic = txtNIC.Text.Trim();
+            string civilStatus = txtCivilStatus.Text.Trim();
+            string birthDate = txtBirthDate.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string residency = txtResidency.Text.Trim();
 
-                foreach (string line in lines)
-                {
-                    string[] patientData = line.Split(';');
+            // Prepare patient data line
+            string patientData = $"{name};{lastName1};{lastName2};{nic};{civilStatus};{birthDate};{phone};{email};{residency};";
 
-                    if (patientData.Length >= 9) // Ensure there are enough fields to read
-                    {
-                        Patient patient = new Patient
-                        {
-                            Name = patientData[0],
-                            LastName1 = patientData[1],
-                            LastName2 = patientData[2],
-                            NIC = patientData[3],
-                            CivilStatus = patientData[4],
-                            BirthDate = patientData[5],
-                            Phone = patientData[6],
-                            Email = patientData[7],
-                            Residency = patientData[8]
-                        };
+            // Append patient data to file
+            File.AppendAllText(patientFilePath, Environment.NewLine + patientData);
 
-                        // Read doctor data (assuming it's from the same structure as patient data)
-                        string[] doctorData = File.ReadAllText(doctorFilePath).Split(';');
-                        Doctor doctor = new Doctor
-                        {
-                            Name = doctorData[0],
-                            LastName1 = doctorData[1],
-                            LastName2 = doctorData[2],
-                            Specialty = doctorData[8]
-                        };
+            // Clear form fields after adding patient
+            ClearFormFields();
 
-                        // Get random disease and medicine
-                        string diseaseName = GetRandomEntryFromFile(diseaseFilePath);
-                        string medicineName = GetRandomEntryFromFile(medicineFilePath);
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "showSuccessAlert('Patient added successfully!');", true);
+        }
+     
 
-                        Disease disease = new Disease
-                        {
-                            Name = diseaseName
-                        };
-
-                        Medicine medicine = new Medicine
-                        {
-                            Name = medicineName,
-                            Prescription = DateTime.Now
-                        };
-
-                        MedicalRecord medicalRecord = new MedicalRecord
-                        {
-                            Doctor = doctor,
-                            Patient = patient,
-                            Disease = disease,
-                            Medicine = medicine
-                        };
-
-                        // Simulate appointments
-                        Appointment lastAppointment = new Appointment { Visit = DateTime.Now.AddDays(-30) };
-                        Appointment nextAppointment = new Appointment { Visit = DateTime.Now.AddDays(30) };
-
-                        // Create and populate table
-                        Table table = new Table { CssClass = "table table-bordered mb-4" };
-
-                        AddTableRow(table, "Name", medicalRecord.Patient.Name);
-                        AddTableRow(table, "Last Name 1", medicalRecord.Patient.LastName1);
-                        AddTableRow(table, "Last Name 2", medicalRecord.Patient.LastName2);
-                        AddTableRow(table, "NIC", medicalRecord.Patient.NIC);
-                        AddTableRow(table, "Civil Status", medicalRecord.Patient.CivilStatus);
-                        AddTableRow(table, "Birth Date", medicalRecord.Patient.BirthDate);
-                        AddTableRow(table, "Phone", medicalRecord.Patient.Phone);
-                        AddTableRow(table, "Email", medicalRecord.Patient.Email);
-                        AddTableRow(table, "Residency", medicalRecord.Patient.Residency);
-                        AddTableRow(table, "Disease", medicalRecord.Disease.Name);
-                        AddTableRow(table, "Medicine", $"{medicalRecord.Medicine.Name} (Prescribed on: {medicalRecord.Medicine.PrescriptionFormatted})");
-                        AddTableRow(table, "Doctor", $"{medicalRecord.Doctor.Name} {medicalRecord.Doctor.LastName1} {medicalRecord.Doctor.LastName2} - {medicalRecord.Doctor.Specialty}");
-                        AddTableRow(table, "Last Appointment", lastAppointment.VisitFormatted);
-                        AddTableRow(table, "Upcoming Appointments", nextAppointment.VisitFormatted);
-
-                        // Add the table to the placeholder
-                        phPatientTable.Controls.Add(table);
-                    }
-                }
-            }
+        
+        //Cambio boton Back to patient list
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManagePatientDashboard");
         }
 
-        private void AddTableRow(Table table, string header, string value)
+        private void ClearFormFields()
         {
-            TableRow row = new TableRow();
-            TableCell cellHeader = new TableCell { Text = header, CssClass = "fw-bold" };
-            TableCell cellValue = new TableCell { Text = value };
-
-            row.Cells.Add(cellHeader);
-            row.Cells.Add(cellValue);
-            table.Rows.Add(row);
-        }
-
-        private string GetRandomEntryFromFile(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                string[] entries = File.ReadAllText(filePath).Split(';');
-                Random random = new Random();
-                return entries[random.Next(entries.Length)];
-            }
-            return "Unknown";
+            // Clear all textboxes
+            txtName.Text = string.Empty;
+            txtLastName1.Text = string.Empty;
+            txtLastName2.Text = string.Empty;
+            txtNIC.Text = string.Empty;
+            txtCivilStatus.Text = string.Empty;
+            txtBirthDate.Text = string.Empty;
+            txtPhone.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtResidency.Text = string.Empty;
         }
     }
 }
