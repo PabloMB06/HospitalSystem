@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DoctorPatientManagement.aspx.cs" Inherits="HospitalSystem.DoctorPatientManagement" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DoctorPatientManagement.aspx.cs" Inherits="HospitalSystem.DoctorPatientManagement" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
         <div class="background">
             <div class="container mt-5">
-                <h1 class="mb-4 text-white">Patient Management or <a href="DoctorPatientList.aspx">Patient List</a></h1>
+                <h1 class="mb-4 text-white">Patient Management</h1>
 
                 <!-- Form for adding/editing patient -->
                 <div class="card">
@@ -54,9 +54,9 @@
                             <asp:TextBox ID="txtResidency" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div>
-                            <asp:Button ID="btnAddPatient" runat="server" Text="Add Patient" CssClass="btn btn-primary" OnClick="btnAddPatient_Click" />
-                            <asp:Button ID="btnEditPatient" runat="server" Text="Edit Patient" CssClass="btn btn-success ms-2" OnClick="btnEditPatient_Click" />
-                            <asp:Button ID="btnDeletePatient" runat="server" Text="Delete Patient" CssClass="btn btn-danger ms-2" OnClick="btnDeletePatient_Click" />
+                            <asp:Button ID="btnAddPatient" runat="server" Text="Add Patient" CssClass="btn btn-primary" OnClick="btnAddPatient_Click" />                  
+                            <asp:Button ID="btnBack" runat="server" Text="Back to patient management" CssClass="btn btn-danger ms-2" OnClick="btnBack_Click" />
+
                         </div>
                     </div>
                 </div>
