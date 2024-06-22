@@ -42,7 +42,7 @@ namespace HospitalSystem
                     foreach (string line in patientData)
                     {
                         string[] patientFields = line.Split(';');
-                        if (patientFields.Length >= 9 && patientFields[3] == patientId)
+                        if (patientFields.Length >= 11 && patientFields[3] == patientId)
                         {
                             Patient patient = new Patient
                             {
@@ -71,8 +71,9 @@ namespace HospitalSystem
                                 }
                             }
 
-                            string diseaseName = GetRandomEntryFromFile(diseaseFilePath);
-                            string medicineName = GetRandomEntryFromFile(medicineFilePath);
+                            // Obtiene la enfermedad y medicina del archivo de pacientes
+                            string diseaseName = patientFields[9];
+                            string medicineName = patientFields[10];
 
                             Disease disease = new Disease
                             {
@@ -143,22 +144,11 @@ namespace HospitalSystem
             table.Rows.Add(row);
         }
 
-        private string GetRandomEntryFromFile(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                string[] entries = File.ReadAllText(filePath).Split(';');
-                Random random = new Random();
-                return entries[random.Next(entries.Length)];
-            }
-            return "Unknown";
-        }
-
         private void ShowErrorMessage(string message)
         {
-            
             phPatientTable.Controls.Add(new LiteralControl($"<p class='text-danger'>{message}</p>"));
         }
+
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("FileList.aspx");
