@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Web.UI.WebControls;
 
@@ -61,7 +61,7 @@ namespace HospitalSystem
         {
             if (File.Exists(filePath))
             {
-                return File.ReadAllText(filePath).Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                return File.ReadAllLines(filePath);
             }
             else
             {
@@ -112,16 +112,9 @@ namespace HospitalSystem
         {
             try
             {
-                if (File.Exists(filePath))
+                using (StreamWriter writer = new StreamWriter(filePath, true))
                 {
-                    File.AppendAllText(filePath, $"{diseaseName};");
-                }
-                else
-                {
-                    using (StreamWriter writer = new StreamWriter(filePath))
-                    {
-                        writer.Write($"{diseaseName};");
-                    }
+                    writer.WriteLine(diseaseName);
                 }
             }
             catch (Exception ex)
@@ -137,14 +130,14 @@ namespace HospitalSystem
             {
                 if (File.Exists(filePath))
                 {
-                    string[] diseases = File.ReadAllText(filePath).Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] diseases = File.ReadAllLines(filePath);
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         foreach (var disease in diseases)
                         {
                             if (!disease.Equals(diseaseName, StringComparison.OrdinalIgnoreCase))
                             {
-                                writer.Write($"{disease};");
+                                writer.WriteLine(disease);
                             }
                         }
                     }
