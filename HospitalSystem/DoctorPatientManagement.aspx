@@ -53,10 +53,17 @@
                             <label for="txtResidency" class="form-label">Residency</label>
                             <asp:TextBox ID="txtResidency" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
+                        <div class="mb-3">
+                            <label for="ddlDisease" class="form-label">Disease</label>
+                            <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select"></asp:DropDownList>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ddlMedicine" class="form-label">Medicine</label>
+                            <asp:DropDownList ID="ddlMedicine" runat="server" CssClass="form-select"></asp:DropDownList>
+                        </div>
                         <div>
                             <asp:Button ID="btnAddPatient" runat="server" Text="Add Patient" CssClass="btn btn-primary" OnClick="btnAddPatient_Click" />                  
                             <asp:Button ID="btnBack" runat="server" Text="Go Back" CssClass="btn btn-danger ms-2" OnClick="btnBack_Click" />
-
                         </div>
                     </div>
                 </div>
