@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Web.UI;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace HospitalSystem
                 string patientId = Request.QueryString["patientId"];
                 LoadPatientInfo(patientId);
                 LoadDiseases();
+                LoadMedicines();
             }
         }
 
@@ -27,7 +28,7 @@ namespace HospitalSystem
                 foreach (string line in lines)
                 {
                     string[] patientData = line.Split(';');
-                    if (patientData[3] == patientId)
+                    if (patientData.Length > 10 && patientData[3] == patientId) // Verificar que la línea tiene al menos 11 elementos
                     {
                         txtName.Text = patientData[0];
                         txtLastName1.Text = patientData[1];
@@ -38,9 +39,8 @@ namespace HospitalSystem
                         txtPhone.Text = patientData[6];
                         txtEmail.Text = patientData[7];
                         txtResidency.Text = patientData[8];
-                        // Assuming Disease and Medicine are at indices 9 and 10
-                        if (patientData.Length > 9) ddlDisease.SelectedValue = patientData[9];
-                        if (patientData.Length > 10) txtMedicine.Text = patientData[10];
+                        ddlDisease.SelectedValue = patientData[9];
+                        ddlMedicine.SelectedValue = patientData[10];
                         break;
                     }
                 }
@@ -52,21 +52,45 @@ namespace HospitalSystem
             string diseasesFilePath = Server.MapPath("~/DB/disease.txt");
             if (File.Exists(diseasesFilePath))
             {
-                List<string> disease = new List<string>();
+                List<string> diseases = new List<string>();
                 using (StreamReader sr = new StreamReader(diseasesFilePath))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        disease.Add(line);
+                        diseases.Add(line);
                     }
                 }
 
                 ddlDisease.Items.Clear();
                 ddlDisease.Items.Add(new ListItem("Select a disease", ""));
-                foreach (string diseases in disease)
+                foreach (string disease in diseases)
                 {
-                    ddlDisease.Items.Add(new ListItem(diseases, diseases));
+                    ddlDisease.Items.Add(new ListItem(disease, disease));
+                }
+            }
+        }
+
+        private void LoadMedicines()
+        {
+            string medicinesFilePath = Server.MapPath("~/DB/medicine.txt");
+            if (File.Exists(medicinesFilePath))
+            {
+                List<string> medicines = new List<string>();
+                using (StreamReader sr = new StreamReader(medicinesFilePath))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        medicines.Add(line);
+                    }
+                }
+
+                ddlMedicine.Items.Clear();
+                ddlMedicine.Items.Add(new ListItem("Select a medicine", ""));
+                foreach (string medicine in medicines)
+                {
+                    ddlMedicine.Items.Add(new ListItem(medicine, medicine));
                 }
             }
         }
@@ -83,9 +107,9 @@ namespace HospitalSystem
                     foreach (string line in lines)
                     {
                         string[] patientData = line.Split(';');
-                        if (patientData[3] == patientId)
+                        if (patientData.Length > 10 && patientData[3] == patientId) // Verificar que la línea tiene al menos 11 elementos
                         {
-                            string updatedLine = $"{txtName.Text};{txtLastName1.Text};{txtLastName2.Text};{txtNIC.Text};{txtCivilStatus.Text};{txtBirthDate.Text};{txtPhone.Text};{txtEmail.Text};{txtResidency.Text};{ddlDisease.SelectedValue};{txtMedicine.Text}";
+                            string updatedLine = $"{txtName.Text};{txtLastName1.Text};{txtLastName2.Text};{txtNIC.Text};{txtCivilStatus.Text};{txtBirthDate.Text};{txtPhone.Text};{txtEmail.Text};{txtResidency.Text};{ddlDisease.SelectedValue};{ddlMedicine.SelectedValue}";
                             writer.WriteLine(updatedLine);
                         }
                         else
@@ -106,4 +130,3 @@ namespace HospitalSystem
         }
     }
 }
-
