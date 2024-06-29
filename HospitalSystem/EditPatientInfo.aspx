@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditPatientInfo.aspx.cs" Inherits="HospitalSystem.EditPatientInfo" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditPatientInfo.aspx.cs" Inherits="HospitalSystem.EditPatientInfo" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,12 +19,18 @@
         .btn-back {
             margin-top: 20px; /* Ajusta el margen superior del botón */
         }
+
+        /* Estilo para los dropdowns */
+        .form-group .dropdown-menu {
+            max-height: 200px; /* Altura máxima del menú desplegable */
+            overflow-y: auto; /* Habilita el desplazamiento vertical si se supera la altura máxima */
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="container" align="center" >
-             <h1 class="mb-4 text-center text-dark">Edit Patient Info</h1>
+            <h1 class="mb-4 text-center text-dark">Edit Patient Info</h1>
             <asp:Panel ID="pnlPatientInfo" runat="server">
                 <div class="form-group">
                     <label for="txtName">Name<asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox></label>
@@ -61,18 +67,19 @@
                     <label for="txtResidency">Residency
                     <asp:TextBox ID="txtResidency" CssClass="form-control" runat="server"></asp:TextBox></label>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <label for="ddlDisease">Disease
-                        <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select" AppendDataBoundItems="true"></asp:DropDownList>
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="txtMedicine">Medicine
-                    <asp:TextBox ID="txtMedicine" CssClass="form-control" runat="server"></asp:TextBox></label>
+                    <label for="ddlMedicine">Medicine
+                        <asp:DropDownList ID="ddlMedicine" runat="server" CssClass="form-select" AppendDataBoundItems="true"></asp:DropDownList>
+                    </label>
                 </div>
-                <br></br>
+                <br />
                 <asp:Button ID="btnSave" CssClass="btn btn-success" runat="server" Text="Confirm Changes" OnClick="btnSave_Click" OnClientClick="return confirm('Are you sure you want to save changes?');" />
-                <asp:Button ID="btnCancel" CssClass="btn btn-danger" runat="server" Text="Cancel" OnClick="btnCancel_Click"  OnClientClick="return confirm('Are you sure you want to cancel?');" />
+                <asp:Button ID="btnCancel" CssClass="btn btn-danger" runat="server" Text="Cancel" OnClick="btnCancel_Click" OnClientClick="return confirm('Are you sure you want to cancel?');" />
             </asp:Panel>
             <asp:Label ID="lblMessage" runat="server" CssClass="alert alert-success" Visible="false"></asp:Label>
         </div>
