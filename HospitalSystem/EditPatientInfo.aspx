@@ -69,12 +69,24 @@
                 </div>
                 <div class="form-group">
                     <label for="ddlDisease">Disease
-                        <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select" AppendDataBoundItems="true"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select" AppendDataBoundItems="true">
+                            <asp:ListItem Text="Covid-19" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Diabetes" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="Hypertension" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="Cancer" Value="4"></asp:ListItem>
+                            <asp:ListItem Text="Asthma" Value="5"></asp:ListItem>
+                        </asp:DropDownList>
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="ddlMedicine">Medicine
-                        <asp:DropDownList ID="ddlMedicine" runat="server" CssClass="form-select" AppendDataBoundItems="true"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlMedicine" runat="server" CssClass="form-select" AppendDataBoundItems="true">
+                            <asp:ListItem Text="Paracetamol" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Ibuprofen" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="Aspirin" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="Amoxicillin" Value="4"></asp:ListItem>
+                            <asp:ListItem Text="Azithromycin" Value="5"></asp:ListItem>
+                        </asp:DropDownList>
                     </label>
                 </div>
                 <br />

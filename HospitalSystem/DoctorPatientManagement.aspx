@@ -55,11 +55,23 @@
                         </div>
                         <div class="mb-3">
                             <label for="ddlDisease" class="form-label">Disease</label>
-                            <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlDisease" runat="server" CssClass="form-select">
+                                <asp:ListItem Text="Covid-19" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Diabetes" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="Hypertension" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="Cancer" Value="4"></asp:ListItem>
+                                <asp:ListItem Text="Asthma" Value="5"></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                         <div class="mb-3">
                             <label for="ddlMedicine" class="form-label">Medicine</label>
-                            <asp:DropDownList ID="ddlMedicine" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlMedicine" runat="server" CssClass="form-select">
+                                <asp:ListItem Text="Paracetamol" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Ibuprofen" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="Aspirin" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="Amoxicillin" Value="4"></asp:ListItem>
+                                <asp:ListItem Text="Azithromycin" Value="5"></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                         <div>
                             <asp:Button ID="btnAddPatient" runat="server" Text="Add Patient" CssClass="btn btn-primary" OnClick="btnAddPatient_Click" />                  

@@ -1,1 +1,2 @@
-diabetes;depression;epilepsy;acne;lupus;malaria;tuberculosis;zika;anxiety;
+Covid
+Malaria
