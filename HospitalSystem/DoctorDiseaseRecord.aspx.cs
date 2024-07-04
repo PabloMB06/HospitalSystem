@@ -1,153 +1,62 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace HospitalSystem
+public partial class DoctorDiseaseRecord : Page
 {
-    public partial class DoctorDiseaseRecord : System.Web.UI.Page
+    private string filePath = HttpContext.Current.Server.MapPath("~/DB/disease.txt");
+
+    protected void Page_Load(object sender, EventArgs e)
     {
-        protected void Page_Load(object sender, EventArgs e)
+        if (!IsPostBack)
         {
-            if (!IsPostBack)
-            {
-                LoadDiseaseData();
-            }
+            LoadDiseases();
         }
+    }
 
-        protected void btnAddDisease_Click(object sender, EventArgs e)
+    private void LoadDiseases()
+    {
+        List<Disease> diseases = new List<Disease>();
+        if (File.Exists(filePath))
         {
-            string newDisease = txtNewDisease.Text.Trim();
-            if (!string.IsNullOrEmpty(newDisease))
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
             {
-                string diseaseFilePath = Server.MapPath("~/DB/disease.txt");
-                AppendDiseaseToFile(diseaseFilePath, newDisease);
-                LoadDiseaseData(); // Refresh the data displayed on the page
-                txtNewDisease.Text = ""; // Clear the text box
-            }
-        }
-
-        protected void btnDeleteDisease_Click(object sender, EventArgs e)
-        {
-            string diseaseToDelete = txtNewDisease.Text.Trim();
-            if (!string.IsNullOrEmpty(diseaseToDelete))
-            {
-                string diseaseFilePath = Server.MapPath("~/DB/disease.txt");
-                DeleteDiseaseFromFile(diseaseFilePath, diseaseToDelete);
-                LoadDiseaseData(); // Refresh the data displayed on the page
-                txtNewDisease.Text = ""; // Clear the text box
-            }
-        }
-
-        private void LoadDiseaseData()
-        {
-            string diseaseFilePath = Server.MapPath("~/DB/disease.txt");
-
-            try
-            {
-                // Read diseases from disease.txt
-                string[] diseaseData = ReadFileLines(diseaseFilePath);
-
-                // Create and populate the table
-                CreateTable(diseaseData);
-            }
-            catch (Exception ex)
-            {
-                // Log or handle exception
-                Console.WriteLine($"Error loading disease data: {ex.Message}");
-            }
-        }
-
-        private string[] ReadFileLines(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                return File.ReadAllLines(filePath);
-            }
-            else
-            {
-                Console.WriteLine($"File not found: {filePath}");
-                return new string[0];
-            }
-        }
-
-        private void CreateTable(string[] diseaseData)
-        {
-            Table table = new Table { CssClass = "table table-bordered" };
-            AddTableHeader(table, "Disease Name");
-
-            foreach (var diseaseName in diseaseData)
-            {
-                if (!string.IsNullOrWhiteSpace(diseaseName))
+                if (!string.IsNullOrWhiteSpace(line))
                 {
-                    AddTableRow(table, diseaseName.Trim());
+                    diseases.Add(new Disease { Name = line });
                 }
             }
-
-            phDiseaseTable.Controls.Add(table);
         }
+        gvDiseases.DataSource = diseases;
+        gvDiseases.DataBind();
+    }
 
-        private void AddTableHeader(Table table, params string[] headers)
+    protected void btnAddDisease_Click(object sender, EventArgs e)
+    {
+        string newDisease = txtNewDisease.Text.Trim();
+        if (!string.IsNullOrEmpty(newDisease))
         {
-            TableRow row = new TableRow();
-            foreach (var header in headers)
-            {
-                TableCell cell = new TableCell { Text = header, CssClass = "fw-bold" };
-                row.Cells.Add(cell);
-            }
-            table.Rows.Add(row);
+            File.AppendAllLines(filePath, new[] { newDisease });
+            txtNewDisease.Text = string.Empty;
+            LoadDiseases();
         }
+    }
 
-        private void AddTableRow(Table table, params string[] values)
-        {
-            TableRow row = new TableRow();
-            foreach (var value in values)
-            {
-                TableCell cell = new TableCell { Text = value };
-                row.Cells.Add(cell);
-            }
-            table.Rows.Add(row);
-        }
+    protected void gvDiseases_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        string diseaseToDelete = gvDiseases.DataKeys[e.RowIndex].Value.ToString();
+        List<string> lines = new List<string>(File.ReadAllLines(filePath));
+        lines.RemoveAll(line => line.Equals(diseaseToDelete, StringComparison.OrdinalIgnoreCase));
+        File.WriteAllLines(filePath, lines);
+        LoadDiseases();
+    }
 
-        private void AppendDiseaseToFile(string filePath, string diseaseName)
-        {
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(filePath, true))
-                {
-                    writer.WriteLine(diseaseName);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log or handle exception
-                Console.WriteLine($"Error writing to file: {ex.Message}");
-            }
-        }
-
-        private void DeleteDiseaseFromFile(string filePath, string diseaseName)
-        {
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    string[] diseases = File.ReadAllLines(filePath);
-                    using (StreamWriter writer = new StreamWriter(filePath))
-                    {
-                        foreach (var disease in diseases)
-                        {
-                            if (!disease.Equals(diseaseName, StringComparison.OrdinalIgnoreCase))
-                            {
-                                writer.WriteLine(disease);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log or handle exception
-                Console.WriteLine($"Error writing to file: {ex.Message}");
-            }
-        }
+    public class Disease
+    {
+        public string Name { get; set; }
     }
 }
