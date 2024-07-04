@@ -1,29 +1,84 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DoctorDiseaseRecord.aspx.cs" Inherits="HospitalSystem.DoctorDiseaseRecord" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DoctorDiseaseRecord.aspx.cs" Inherits="DoctorDiseaseRecord" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Doctor - Disease Records</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
-    <link href="Styles/DoctorDiseaseRecord.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Disease List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .gridview {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .gridview th, .gridview td {
+            padding: 10px;
+            text-align: left;
+        }
+        .gridview th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .gridview tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .input-group {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .input-group input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .input-group button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <div class="background">
-        <div class="container mt-5">
-            <h1 class="text-center mb-4">Disease List</h1>
-            <form id="form1" runat="server">
-                <div class="mb-3">
-                    <asp:TextBox ID="txtNewDisease" runat="server" CssClass="form-control" placeholder="Enter disease name"></asp:TextBox>
-                </div>
-                <div class="mb-3 text-center">
-                    <asp:Button ID="btnAddDisease" runat="server" Text="Add Disease" CssClass="btn btn-primary" OnClick="btnAddDisease_Click" />
-                    <asp:Button ID="btnDeleteDisease" runat="server" Text="Delete Disease" CssClass="btn btn-danger" OnClick="btnDeleteDisease_Click" />
-                </div>
-                <asp:PlaceHolder ID="phDiseaseTable" runat="server"></asp:PlaceHolder>
-            </form>
+    <form id="form1" runat="server">
+        <div class="container">
+            <h1>Disease List</h1>
+            <asp:GridView ID="gvDiseases" runat="server" AutoGenerateColumns="False" DataKeyNames="Name" CssClass="gridview" OnRowDeleting="gvDiseases_RowDeleting">
+                <Columns>
+                    <asp:BoundField DataField="Name" HeaderText="Disease" ReadOnly="True" />
+                    <asp:CommandField ShowDeleteButton="True"/>
+                </Columns>
+            </asp:GridView>
+            <div class="input-group">
+                <asp:TextBox ID="txtNewDisease" runat="server" Placeholder="New Disease"></asp:TextBox>
+                <asp:Button ID="btnAddDisease" runat="server" Text="Add Disease" OnClick="btnAddDisease_Click" />
+            </div>
         </div>
-    </div>
+    </form>
 </body>
 </html>
