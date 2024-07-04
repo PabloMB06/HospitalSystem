@@ -1,158 +1,80 @@
-﻿using HospitalSystem.Objects;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace HospitalSystem
+public partial class DoctorMedicineInventory : Page
 {
-    public partial class DoctorMedicineInventory : System.Web.UI.Page
+    private string filePath = HttpContext.Current.Server.MapPath("~/DB/medicine.txt");
+
+    protected void Page_Load(object sender, EventArgs e)
     {
-        protected void Page_Load(object sender, EventArgs e)
+        if (!IsPostBack)
         {
-            if (!IsPostBack)
-            {
-                LoadMedicineData();
-            }
+            LoadMedicines();
         }
+    }
 
-        private void LoadMedicineData()
+    private void LoadMedicines()
+    {
+        List<Medicine> medicines = new List<Medicine>();
+        if (File.Exists(filePath))
         {
-            string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
-            string pharmacyFilePath = Server.MapPath("~/DB/pharmacy.txt");
-
-            if (File.Exists(medicineFilePath) && File.Exists(pharmacyFilePath))
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
             {
-                string[] medicineData = File.ReadAllText(medicineFilePath).Split(';');
-                string[] pharmacyData = File.ReadAllText(pharmacyFilePath).Split(';');
-                var medicines = new List<Medicine>();
-
-                Random random = new Random();
-                foreach (var item in medicineData)
+                if (!string.IsNullOrWhiteSpace(line))
                 {
-                    if (!string.IsNullOrWhiteSpace(item))
+                    string[] parts = line.Split(',');
+                    if (parts.Length == 3)
                     {
                         medicines.Add(new Medicine
                         {
-                            Name = item,
-                            Pharmacy = GetRandomPharmacy(pharmacyData, random),
-                            Amount = random.Next(10, 100).ToString(),
-                            Prescription = DateTime.Now.AddDays(random.Next(-100, 0)) // Arrival date in the past
+                            Name = parts[0].Trim(),
+                            Pharmacy = parts[1].Trim(),
+                            Quantity = int.Parse(parts[2].Trim())
                         });
                     }
                 }
-
-                Table table = new Table { CssClass = "table table-bordered" };
-
-                AddTableHeader(table, "Name", "Pharmacy", "Amount", "Arrival Date", "Expiry Date");
-
-                foreach (var medicine in medicines)
-                {
-                    AddTableRow(table, medicine.Name, medicine.Pharmacy, medicine.Amount, medicine.PrescriptionFormatted, medicine.Prescription.AddYears(2).ToString("MM/dd/yyyy"));
-                }
-
-                phMedicineTable.Controls.Add(table);
             }
         }
+        gvMedicines.DataSource = medicines;
+        gvMedicines.DataBind();
+    }
 
-        private void AddTableHeader(Table table, params string[] headers)
+    protected void btnAddMedicine_Click(object sender, EventArgs e)
+    {
+        string name = txtNewMedicineName.Text.Trim();
+        string pharmacy = txtNewMedicinePharmacy.Text.Trim();
+        int quantity;
+        if (int.TryParse(txtNewMedicineQuantity.Text.Trim(), out quantity))
         {
-            TableRow row = new TableRow();
-            foreach (var header in headers)
+            using (StreamWriter writer = new StreamWriter(filePath, true))
             {
-                TableCell cell = new TableCell { Text = header, CssClass = "fw-bold" };
-                row.Cells.Add(cell);
+                writer.WriteLine($"{name}, {pharmacy}, {quantity}");
             }
-            table.Rows.Add(row);
+            txtNewMedicineName.Text = string.Empty;
+            txtNewMedicinePharmacy.Text = string.Empty;
+            txtNewMedicineQuantity.Text = string.Empty;
+            LoadMedicines();
         }
+    }
 
-        private void AddTableRow(Table table, params string[] values)
-        {
-            TableRow row = new TableRow();
-            foreach (var value in values)
-            {
-                TableCell cell = new TableCell { Text = value };
-                row.Cells.Add(cell);
-            }
-            table.Rows.Add(row);
-        }
+    protected void gvMedicines_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        string medicineToDelete = gvMedicines.DataKeys[e.RowIndex].Value.ToString();
+        List<string> lines = new List<string>(File.ReadAllLines(filePath));
+        lines.RemoveAll(line => line.StartsWith(medicineToDelete, StringComparison.OrdinalIgnoreCase));
+        File.WriteAllLines(filePath, lines);
+        LoadMedicines();
+    }
 
-        private string GetRandomPharmacy(string[] pharmacies, Random random)
-        {
-            return pharmacies[random.Next(pharmacies.Length)];
-        }
-
-        protected void btnAddMedicine_Click(object sender, EventArgs e)
-        {
-            string newMedicine = txtNewMedicine.Text.Trim();
-            if (!string.IsNullOrEmpty(newMedicine))
-            {
-                string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
-                AppendMedicineToFile(medicineFilePath, newMedicine);
-                LoadMedicineData(); // Refresh the data displayed on the page
-                txtNewMedicine.Text = ""; // Clear the text box
-            }
-        }
-
-        protected void btnDeleteMedicine_Click(object sender, EventArgs e)
-        {
-            string medicineToDelete = txtNewMedicine.Text.Trim();
-            if (!string.IsNullOrEmpty(medicineToDelete))
-            {
-                string medicineFilePath = Server.MapPath("~/DB/medicine.txt");
-                DeleteMedicineFromFile(medicineFilePath, medicineToDelete);
-                LoadMedicineData(); // Refresh the data displayed on the page
-                txtNewMedicine.Text = ""; // Clear the text box
-            }
-        }
-
-        private void AppendMedicineToFile(string filePath, string medicineName)
-        {
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    File.AppendAllText(filePath, $"{medicineName};");
-                }
-                else
-                {
-                    using (StreamWriter writer = new StreamWriter(filePath))
-                    {
-                        writer.Write($"{medicineName};");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log or handle exception
-                Console.WriteLine($"Error writing to file: {ex.Message}");
-            }
-        }
-
-        private void DeleteMedicineFromFile(string filePath, string medicineName)
-        {
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    string[] medicines = File.ReadAllText(filePath).Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                    using (StreamWriter writer = new StreamWriter(filePath))
-                    {
-                        foreach (var medicine in medicines)
-                        {
-                            if (!medicine.Equals(medicineName, StringComparison.OrdinalIgnoreCase))
-                            {
-                                writer.Write($"{medicine};");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log or handle exception
-                Console.WriteLine($"Error writing to file: {ex.Message}");
-            }
-        }
+    public class Medicine
+    {
+        public string Name { get; set; }
+        public string Pharmacy { get; set; }
+        public int Quantity { get; set; }
     }
 }
